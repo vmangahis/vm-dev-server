@@ -13,14 +13,7 @@ namespace vm_dev_server
             var builder = WebApplication.CreateBuilder(args);
 
 
-            builder.Services.AddCors(options => {
-                options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
-                {
-                    policy.WithOrigins("http://127.0.0.1:4200/");
-                });
-
-            });
-
+           
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -33,7 +26,12 @@ namespace vm_dev_server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            
+            builder.Services.AddCors(
+                p => p.AddPolicy("cors", build =>
+                {
+                    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                }));
+
 
             var app = builder.Build();
 
@@ -46,7 +44,7 @@ namespace vm_dev_server
 
             app.UseHttpsRedirection();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors("cors");
 
             app.UseAuthorization();
 

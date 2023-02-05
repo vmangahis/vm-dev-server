@@ -8,7 +8,7 @@ namespace vm_dev_server
         public static void Main(string[] args)
         {
 
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            
 
             var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +29,7 @@ namespace vm_dev_server
             builder.Services.AddCors(
                 p => p.AddPolicy("cors", build =>
                 {
-                    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+                    build.WithOrigins("http://127.0.0.1:4200").AllowAnyMethod().AllowAnyHeader();
                 }));
 
 

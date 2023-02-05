@@ -18,23 +18,13 @@ namespace vm_dev_server.Controllers
         }
 
 
-        [EnableCors]
+        
         [HttpGet]
         public async Task<ActionResult<List<Experience>>> Get()
         {
-            var exp = new List<Experience>()
-            {
-                new Experience
-                {
-                    Id = 1,
-                    Comp = "DepEd",
-                    StDate = "April 1, 2022",
-                    EdDate = "July 1, 2022",
-                    Role_Name = "Frontend Developer"
-                }
-            };
-
             return Ok(await _context.Experiences.ToListAsync());
         }
+
+        
     }
 }

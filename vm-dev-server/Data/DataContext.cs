@@ -7,6 +7,7 @@ namespace vm_dev_server.Data
         public DataContext(DbContextOptions<DataContext> option): base(option) {  }
 
         public DbSet<Experience> Experiences { get; set; }
-        //public DbSet<Skill>Skills { get; set; }
+        
+        public DbSet<Projects> Projects { get; set; }
     }
 }

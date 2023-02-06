@@ -29,7 +29,7 @@ namespace vm_dev_server
             builder.Services.AddCors(
                 p => p.AddPolicy("cors", build =>
                 {
-                    build.WithOrigins("http://127.0.0.1:4200").AllowAnyMethod().AllowAnyHeader();
+                    build.WithOrigins("http://127.0.0.1:4200", "https://vmangahis.github.io").AllowAnyMethod().AllowAnyHeader();
                 }));
 
 

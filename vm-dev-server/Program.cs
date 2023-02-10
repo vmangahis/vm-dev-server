@@ -52,7 +52,9 @@ namespace vm_dev_server
 
             app.MapControllers();
 
-           
+
+            app.UseDeveloperExceptionPage();
+
 
             app.Run();
         }

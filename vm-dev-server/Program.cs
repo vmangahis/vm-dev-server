@@ -22,9 +22,9 @@ namespace vm_dev_server
             builder.Services.AddCors();
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                GetConnectionString(builder);
+                
               //  options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version()));//builder.Configuration.GetConnectionString("DefaultConnection"));
-                options.UseMySql(GetConnectionString(builder), new MySqlServerVersion(new Version()));
+                options.UseMySql(BuildCS(), new MySqlServerVersion(new Version()));
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -63,21 +63,16 @@ namespace vm_dev_server
             app.Run();
         }
 
-        public static string GetConnectionString(WebApplicationBuilder wb)
-        {
-            var dbURL = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var conString = wb.Configuration.GetConnectionString("DefaultConnection");
-            return BuildCS();
-        }
+        
 
         private static string BuildCS() {
-            var dbUrl = Environment.GetEnvironmentVariable("MYSQLHOST");
-            var port = Environment.GetEnvironmentVariable("MYSQLPORT");
-            var db = Environment.GetEnvironmentVariable("MYSQLDATABASE");
-            var uname = Environment.GetEnvironmentVariable("MYSQLUSER");
-            var pas = Environment.GetEnvironmentVariable("MYSQLPASSWORD");
+            var dbUrl = Environment.GetEnvironmentVariable("DBHOST");
+            var pas = Environment.GetEnvironmentVariable("DBPASS");
+            var uname = Environment.GetEnvironmentVariable("DBUSERNAME");
+            var db = Environment.GetEnvironmentVariable("DBNAME");
+           
 
-            string conString = $"Server={dbUrl};Port={port};Database={db};Uid={uname};Pwd={pas}";
+            string conString = $"Server={dbUrl};Database={db};Uid={uname};Pwd={pas}";
 
             return conString;
         

@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>vm_dev_server</RootNamespace>
-	  <InvariantGlobalization>true</InvariantGlobalization>
+	
   </PropertyGroup>
 
   <ItemGroup>

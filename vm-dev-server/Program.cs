@@ -23,7 +23,7 @@ namespace vm_dev_server
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(GetConnectionString(builder));//builder.Configuration.GetConnectionString("DefaultConnection"));
-                Environment.GetEnvironmentVariable("DATABASE_URL");
+                
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

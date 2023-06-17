@@ -22,8 +22,9 @@ namespace vm_dev_server
             builder.Services.AddCors();
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(GetConnectionString(builder));//builder.Configuration.GetConnectionString("DefaultConnection"));
-          
+                GetConnectionString(builder);
+              //  options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version()));//builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseMySql(GetConnectionString(builder), new MySqlServerVersion(new Version()));
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -66,26 +67,19 @@ namespace vm_dev_server
         {
             var dbURL = Environment.GetEnvironmentVariable("DATABASE_URL");
             var conString = wb.Configuration.GetConnectionString("DefaultConnection");
-            return string.IsNullOrEmpty(dbURL) ? conString : BuildCS(dbURL);
+            return BuildCS();
         }
 
-        private static string BuildCS(string dbURL) {
-            var dburl = new Uri(dbURL);
-            var userin = dburl.UserInfo.Split(':');
-            var builder = new NpgsqlConnectionStringBuilder
-            {
-                Host = dburl.Host,
-                Port = dburl.Port,
-                Username = userin[0],
-                Password = userin[1],
-                Database = dburl.LocalPath.TrimStart('/'),
-                SslMode = SslMode.Require,
-                TrustServerCertificate = true
+        private static string BuildCS() {
+            var dbUrl = Environment.GetEnvironmentVariable("MYSQL_URL");
+            var port = Environment.GetEnvironmentVariable("MYSQLPORT");
+            var db = Environment.GetEnvironmentVariable("MYSQLDATABASE");
+            var uname = Environment.GetEnvironmentVariable("MYSQLUSER");
+            var pas = Environment.GetEnvironmentVariable("MYSQLPASSWORD");
 
+            string conString = $"Server={dbUrl};Port={port};Database={db};Uid={uname};Pwd={pas}";
 
-            };
-
-            return builder.ToString();
+            return conString;
         
         }
 

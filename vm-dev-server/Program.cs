@@ -71,7 +71,7 @@ namespace vm_dev_server
         }
 
         private static string BuildCS() {
-            var dbUrl = Environment.GetEnvironmentVariable("MYSQL_URL");
+            var dbUrl = Environment.GetEnvironmentVariable("MYSQLHOST");
             var port = Environment.GetEnvironmentVariable("MYSQLPORT");
             var db = Environment.GetEnvironmentVariable("MYSQLDATABASE");
             var uname = Environment.GetEnvironmentVariable("MYSQLUSER");
